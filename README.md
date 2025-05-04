@@ -1,4 +1,5 @@
 # React + Vite Template
+[![Netlify Status](https://api.netlify.com/api/v1/badges/85a1ee82-d902-4c97-8fef-bcab213b4750/deploy-status)](https://app.netlify.com/sites/wondrous-paprenjak-9bfb69/deploys)
 
 A modern React template for web applications and games, featuring React 18, Vite, TailwindCSS, and Material UI.
 
