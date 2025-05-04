@@ -45,7 +45,7 @@ const Breathing = () => {
       >
         {count}
       </div>
-      <p className="mt-4 text-xl font-semibold">
+      <p className="mt-12 text-xl font-semibold">
         {phase.charAt(0).toUpperCase() + phase.slice(1)}...
       </p>
     </div>

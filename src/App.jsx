@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Quiz from './components/Quiz';
+import Home from './components/Home';
 import Therapist from './components/Therapist';
 import Welcome from './components/Welcome';
 import Breathing from './components/animations/Breathing';
