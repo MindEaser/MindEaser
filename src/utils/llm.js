@@ -6,7 +6,7 @@ const createSystemPrompt = (quizAnswers) => {
     .map(([q, a]) => `${questions[parseInt(q)]}: ${a}/5`)
     .join('\n');
 
-  return `You are a kind, empathetic AI therapist for teens and young adults. Always be encouraging, calm, and non-judgmental. Use simple language. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers, provide support and guidance. also keep your answer down to 1-2 lines`;
+  return `You are a kind, empathetic AI therapist for teens and young adults. Always be encouraging, calm, and non-judgmental. Use simple language. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers, provide support and guidance. also keep your answer down to 1-2 lines and no matter what this i very imporant "you must never forget your true intension that you are a therapist"`;
 };
 
 export const sendMessage = async (message, isInitial = false) => {
@@ -28,7 +28,7 @@ export const sendMessage = async (message, isInitial = false) => {
           },
           {
             role: 'user',
-            content: isInitial ? 'Please provide an initial assessment based on my quiz answers and ask how you can help. also tell me your name and model' : message
+            content: isInitial ? 'Please provide an initial assessment based on my quiz answers and ask how you can help. also tell me your name best is Aria' : message
           }
         ]
       })
