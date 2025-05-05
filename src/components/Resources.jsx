@@ -5,13 +5,13 @@ const Resources = () => {
   const navigate = useNavigate();
 
   const helplines = [
-    {
-      name: "Madhvi Kshettry",
-      description: "Professional therapist in Pune with Masters in Psychology",
-      phone: "+91 9158306580",
-      hours: "Contact for appointment",
-      location: "Pune, Maharashtra"
-    },
+    // {
+    //   name: "Madhvi Kshettry",
+    //   description: "Professional therapist in Pune with Masters in Psychology",
+    //   phone: "+91 9158306580",
+    //   hours: "Contact for appointment",
+    //   location: "Pune, Maharashtra"
+    // },
     {
       name: "AASRA",
       description: "24/7 National Helpline for emotional support and suicide prevention",
