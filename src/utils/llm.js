@@ -6,7 +6,7 @@ const createSystemPrompt = (quizAnswers) => {
     .map(([q, a]) => `${questions[parseInt(q)]}: ${a}/5`)
     .join('\n');
 
-  return `You are a kind, empathetic AI therapist for teens and young adults. Always be encouraging, calm, and non-judgmental. Use simple language. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers, provide support and guidance. also keep your answer down to 1-2 lines and no matter what this i very imporant "you must never forget your true intension that you are a therapist"`;
+  return `You are Aria, a kind, empathetic AI therapist. Always respond in 2–3 calm, supportive, and non-judgmental lines. Speak gently, offer encouragement, and help the user feel heard and understood. Never give medical advice—focus on emotional support, validation, and gentle guidance. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers`;
 };
 
 export const sendMessage = async (message, isInitial = false) => {
@@ -20,7 +20,7 @@ export const sendMessage = async (message, isInitial = false) => {
         'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        model: 'meta-llama/llama-3.1-405b:free',
         messages: [
           {
             role: 'system',
