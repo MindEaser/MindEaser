@@ -79,7 +79,24 @@ const Therapist = () => {
   }, [messages]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      <img 
+        src="/favicon.png" 
+        alt="Home" 
+        className="fixed top-4 left-4 z-50 w-10 h-10 object-contain cursor-pointer hover:scale-110 transition-transform"
+        onClick={() => navigate('/')}
+      />
+
+      <div 
+        className="fixed top-4 right-4 z-50 cursor-pointer hover:scale-110 transition-transform text-gray-800 flex items-center gap-2"
+        onClick={() => navigate('/resources')}
+      >
+        <span className="text-sm font-medium">Resources</span>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </div>
+
       <div className="flex-1 overflow-y-auto p-4">
         <div className="max-w-3xl mx-auto space-y-4">
           {messages.map((message) => (
@@ -118,23 +135,36 @@ const Therapist = () => {
         </div>
       )}
 
-      <div className="p-4 bg-white/90 border-t">
-        <div className="max-w-3xl mx-auto flex gap-4">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            className="flex-1 p-4 rounded-xl border-2 border-primary-green/30 focus:outline-none
-                     focus:border-primary-green"
-            placeholder="Type your message..."
+      <div className="p-2 sm:p-4 bg-white/90 border-t">
+        <div className="max-w-3xl mx-auto relative">
+          <img 
+            src="/bubble.png" 
+            alt="Take a Break"
+            onClick={() => setShowBreathing(true)}
+            className="absolute -top-36 right-1 animate-[bounce_3s_ease-in-out_infinite] hover:animate-none 
+                     transition-transform duration-300 hover:scale-105
+                     cursor-pointer"
+            style={{
+              width: '72px',  // 18rem = 72px
+              height: '72px',
+              animationName: 'gentleBounce',
+              '--bounce-height': '8px'
+            }}
           />
-          <Button onClick={handleSend} disabled={isLoading}>
-            Send
-          </Button>
-          <Button onClick={() => setShowBreathing(true)}>
-            Take a Break
-          </Button>
+          <div className="flex gap-2 sm:gap-4">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              className="flex-1 p-4 rounded-xl border-2 border-primary-green/30 focus:outline-none
+                       focus:border-primary-green"
+              placeholder="Type your message..."
+            />
+            <Button onClick={handleSend} disabled={isLoading}>
+              Send
+            </Button>
+          </div>
         </div>
       </div>
     </div>

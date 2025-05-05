@@ -1,16 +1,27 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from './common/Button';
 import Card from './common/Card';
 
 const Welcome = () => {
-  const quizAnswers = localStorage.getItem('quizAnswers');
-  const isReturningUser = Boolean(quizAnswers);
   const navigate = useNavigate();
+  const [showWelcomeBack, setShowWelcomeBack] = useState(false);
+  
+  const handleGetStarted = () => {
+    const quizAnswers = localStorage.getItem('quizAnswers');
+    if (quizAnswers) {
+      setShowWelcomeBack(true);
+      setTimeout(() => {
+        navigate('/therapist');
+      }, 2000);
+    } else {
+      navigate('/quiz');
+    }
+  };
 
   return (
     <div className="min-h-screen">
-      {isReturningUser ? (
+      {showWelcomeBack ? (
         <div className="flex flex-col items-center justify-center h-screen text-center space-y-6 max-w-xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-800">Welcome back! 👋</h1>
           <p className="text-xl text-gray-600">
@@ -31,7 +42,7 @@ const Welcome = () => {
               Take a short quiz to understand how you feel and meet your AI therapist.
             </p>
             <Button
-              onClick={() => navigate('/quiz')}
+              onClick={handleGetStarted}
               className="animate-pulse hover:animate-none"
             >
               Get Started
@@ -68,7 +79,7 @@ const Welcome = () => {
                 What We Offer
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {['Quick Quiz', 'AI Therapist', 'Mini-Games', 'Tips & Resources'].map((item) => (
+                {['Quick Quiz', 'AI Therapist', 'Breathing Exercises', 'Tips & Resources'].map((item) => (
                   <div
                     key={item}
                     className="bg-white/90 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow"

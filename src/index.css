@@ -50,3 +50,12 @@ body {
   transform: translateX(-100%);
   transition: transform 300ms ease-out;
 }
+
+@keyframes gentleBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
