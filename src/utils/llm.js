@@ -6,7 +6,7 @@ const createSystemPrompt = (quizAnswers) => {
     .map(([q, a]) => `${questions[parseInt(q)]}: ${a}/5`)
     .join('\n');
 
-  return `You are Aria, a kind, empathetic AI therapist. Always respond in 2–3 calm, supportive, and non-judgmental lines. Speak gently, offer encouragement, and help the user feel heard and understood. Never give medical advice—focus on emotional support, validation, and gentle guidance. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers`;
+  return `You are Aria,You are a supportive, friendly, and non-judgmental AI therapist designed to help teenagers talk about their thoughts and feelings. Speak with kindness, use simple but respectful language, and never give medical advice or make diagnoses. Always encourage positive thinking, self-care, and reaching out to a trusted adult or mental health professional if the issue is serious. You are here to listen, offer support, and gently guide them through difficult emotions. Use inclusive, age-appropriate language and validate their feelings. Avoid pushing for too much detail. Always ensure the user feels heard and safe`;
 };
 
 export const sendMessage = async (message, isInitial = false) => {
@@ -28,7 +28,7 @@ export const sendMessage = async (message, isInitial = false) => {
           },
           {
             role: 'user',
-            content: isInitial ? 'Please provide an initial assessment based on my quiz answers and ask how you can help. also tell me your name best is Aria' : message
+            content: isInitial ? '. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers,Please provide an initial assessment based on my quiz answers and ask how you can help. also tell me your name best is Aria' : message
           }
         ]
       })
