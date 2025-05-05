@@ -79,7 +79,7 @@ const Therapist = () => {
   }, [messages]);
 
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col relative max-h-screen overflow-hidden">
       <img 
         src="/favicon.png" 
         alt="Home" 
@@ -97,7 +97,7 @@ const Therapist = () => {
         </svg>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-2 sm:p-4">
         <div className="max-w-3xl mx-auto space-y-4">
           {messages.map((message) => (
             <div
@@ -105,7 +105,7 @@ const Therapist = () => {
               className={`flex ${message.isAi ? 'justify-start' : 'justify-end'}`}
             >
               <div
-                className={`max-w-[80%] p-4 rounded-xl ${
+                className={`max-w-[90%] sm:max-w-[80%] p-3 sm:p-4 rounded-xl ${
                   message.isAi
                     ? 'bg-white text-gray-800'
                     : 'bg-primary-green text-gray-800'
@@ -117,7 +117,7 @@ const Therapist = () => {
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-white text-gray-800 p-4 rounded-xl">
+              <div className="bg-white text-gray-800 p-3 sm:p-4 rounded-xl">
                 Thinking...
               </div>
             </div>
@@ -127,41 +127,44 @@ const Therapist = () => {
       </div>
 
       {showBreathing && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded-2xl">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white p-4 sm:p-8 rounded-2xl w-full max-w-lg mx-2 sm:mx-4">
             <Breathing />
             <Button onClick={() => setShowBreathing(false)}>Close</Button>
           </div>
         </div>
       )}
 
-      <div className="p-2 sm:p-4 bg-white/90 border-t">
+      <div className="sticky bottom-0 p-2 sm:p-4 bg-white/90 border-t">
         <div className="max-w-3xl mx-auto relative">
           <img 
             src="/bubble.png" 
             alt="Take a Break"
             onClick={() => setShowBreathing(true)}
-            className="absolute -top-36 right-1 animate-[bounce_3s_ease-in-out_infinite] hover:animate-none 
+            className="absolute -top-24 sm:-top-36 right-1 animate-[bounce_3s_ease-in-out_infinite] hover:animate-none 
+                     w-12 sm:w-16 h-12 sm:h-16 
                      transition-transform duration-300 hover:scale-105
                      cursor-pointer"
             style={{
-              width: '72px',  // 18rem = 72px
-              height: '72px',
               animationName: 'gentleBounce',
               '--bounce-height': '8px'
             }}
           />
-          <div className="flex gap-2 sm:gap-4">
+          <div className="flex gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              className="flex-1 p-4 rounded-xl border-2 border-primary-green/30 focus:outline-none
-                       focus:border-primary-green"
+              className="flex-1 p-2 sm:p-4 rounded-xl border-2 border-primary-green/30 focus:outline-none
+                       focus:border-primary-green text-sm sm:text-base"
               placeholder="Type your message..."
             />
-            <Button onClick={handleSend} disabled={isLoading}>
+            <Button 
+              onClick={handleSend} 
+              disabled={isLoading}
+              className="px-3 py-2 sm:px-6 sm:py-3 text-sm sm:text-base whitespace-nowrap"
+            >
               Send
             </Button>
           </div>
