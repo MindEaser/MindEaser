@@ -20,7 +20,7 @@ export const sendMessage = async (message, isInitial = false) => {
         'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-405b:free',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         messages: [
           {
             role: 'system',
