@@ -10,7 +10,7 @@ MindEaser is a teen-friendly AI-powered mental health web app built to offer emo
 
 ## 🌟 Key Features
 
-### 💬 AI Therapist (Powered by LLaMA 3.3 70B Instruct via OpenRouter)
+### 💬 AI Therapist (Powered by LLaMA 3.3 70B Instruct)
 
 * A supportive chatbot for venting, reflection, and emotional connection
 * Conversational and teen-friendly tone
