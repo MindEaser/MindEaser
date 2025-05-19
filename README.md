@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/85a1ee82-d902-4c97-8fef-bcab213b4750/deploy-status)](https://app.netlify.com/projects/mindeaser/deploys)
 
-👉 **Live Site:** [Try MindEaser Now](https://wondrous-paprenjak-9bfb69.netlify.app)
+👉 **Live Site:** [Try MindEaser Now](https://mindeaser.netlify.app/)
 
 MindEaser is a teen-friendly AI-powered mental health web app built to offer emotional support and promote well-being. With an intelligent AI therapist, a simple self-check quiz, and calming mini-games — MindEaser is a safe, private, and peaceful corner of the internet, just for you.
 
