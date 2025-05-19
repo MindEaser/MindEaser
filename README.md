@@ -1,6 +1,6 @@
 # 🧠 MindEaser — A Friendly Mental Health Companion for Teens
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/85a1ee82-d902-4c97-8fef-bcab213b4750/deploy-status)](https://app.netlify.com/sites/wondrous-paprenjak-9bfb69/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/85a1ee82-d902-4c97-8fef-bcab213b4750/deploy-status)](https://app.netlify.com/projects/mindeaser/deploys)
 
 👉 **Live Site:** [Try MindEaser Now](https://wondrous-paprenjak-9bfb69.netlify.app)
 
