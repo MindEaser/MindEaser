@@ -4,7 +4,7 @@
 
 👉 **Live Site:** [Try MindEaser Now](https://mindeaser.netlify.app/)
 
-MindEaser is a teen-friendly AI-powered mental health web app built to offer emotional support and promote well-being. With an intelligent AI therapist, a simple self-check quiz, and calming mini-games — MindEaser is a safe, private, and peaceful corner of the internet, just for you.
+MindEaser is a teen-friendly AI-powered mental health app built to offer emotional support and promote well-being. With an intelligent AI therapist, a simple self-check quiz, and calming mini-games — MindEaser is a safe, private, and peaceful corner of the internet, just for you.
 
 ---
 
