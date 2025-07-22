@@ -151,7 +151,10 @@ export async function sendCrisisAlertEmail(message) {
   const lowerMsg = message.toLowerCase();
   const triggeredKeywords = CRISIS_KEYWORDS.filter(word => lowerMsg.includes(word)).join(', ');
   const templateParams = {
-    to_email: CRISIS_ALERT_EMAIL,
+    to_email: import.meta.env.VITE_EMAILJS_ID1,
+    to_email2: import.meta.env.VITE_EMAILJS_ID2,
+    to_email3: import.meta.env.VITE_EMAILJS_ID3,
+    to_email1: import.meta.env.VITE_EMAILJS_IDD,
     user_message: message,
     student_name: studentName,
     student_class_section: studentClassSection,

@@ -113,4 +113,5 @@ export const CRISIS_KEYWORDS = [
 ];
 
 export const CRISIS_ALERT_EMAIL = 'manit2010kshettry@gmail.com'; // TODO: Replace with real email
-
+export const CRISIS_ALERT_EMAIL2 = 'parinaparwani009@gmail.com'; // TODO: Replace with real email
+export const CRISIS_ALERT_EMAIL3 = 'manitpics1@gmail.com'; // TODO: Replace with real email
