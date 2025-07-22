@@ -138,9 +138,9 @@ export function containsCrisisKeyword(message) {
 // Utility: Send crisis alert email using EmailJS
 export async function sendCrisisAlertEmail(message) {
   // EmailJS config (use your real values or .env)
-  const serviceID = "service_2hpa9tm";
-  const templateID = "template_l3th94u";
-  const userID = "pVrXtovBIsN48pLI5";
+  const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const userID = import.meta.env.VITE_EMAILJS_USER_ID;
   // Get name, class, and section from localStorage
   const studentName = localStorage.getItem('quizName') || '';
   const studentClass = localStorage.getItem('quizClass') || '';
