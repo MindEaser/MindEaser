@@ -23,3 +23,42 @@ export const questions = [
 ];
 
 export const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+
+export const CRISIS_KEYWORDS = [
+  'suicide',
+  'abuse',
+  'sh',
+  'kms',
+  'give up',
+  'hit',
+  'kill',
+  'self harm',
+  'end my life',
+  'hurt myself',
+  'depressed',
+  'worthless',
+  'hopeless',
+  'can\'t go on',
+  'give up',
+  'cut myself',
+  'overdose',
+  'die',
+  'ending it',
+  'no way out',
+  'pain too much',
+  'want to disappear',
+  'abused',
+  'molest',
+  'assault',
+  'rape',
+  'violence',
+  'beaten',
+  'bullied',
+  'harassed',
+  'threatened',
+  'unsafe',
+  'danger',
+  'crisis',
+];
+
+export const CRISIS_ALERT_EMAIL = 'manit2010kshettry@gmail.com'; // TODO: Replace with real email

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './common/Button';
 import Breathing from './animations/Breathing';
-import { sendMessage } from '../utils/llm';
+import { sendMessageWithCrisisDetection } from '../utils/llm';
 
 const Therapist = () => {
   const [messages, setMessages] = useState([]);
@@ -40,7 +40,7 @@ const Therapist = () => {
 
   const initializeChat = async () => {
     setIsLoading(true);
-    const response = await sendMessage('', true);
+    const response = await sendMessageWithCrisisDetection('', true);
     
     if (response) {
       const initialMessages = [
@@ -65,7 +65,8 @@ const Therapist = () => {
     setInput('');
     setIsLoading(true);
 
-    const response = await sendMessage(input);
+    // Optionally, you can pass user email if available, here left blank
+    const response = await sendMessageWithCrisisDetection(input);
     if (response) {
       const updatedMessages = [...newMessages, { id: Date.now(), text: response, isAi: true }];
       setMessages(updatedMessages);

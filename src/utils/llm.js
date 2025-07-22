@@ -46,6 +46,7 @@
 //   }
 // };
 import { questions, OPENROUTER_API_URL } from './constants';
+import { CRISIS_KEYWORDS, CRISIS_ALERT_EMAIL } from './constants';
 
 /**
  * Build the system prompt from stored quiz answers.
@@ -125,3 +126,54 @@ export const sendMessage = async (message, isInitial = false) => {
     return "I'm having trouble responding right now. Please try again in a moment.";
   }
 };
+
+// Utility: Check if a message contains any crisis keywords
+export function containsCrisisKeyword(message) {
+  if (!message) return false;
+  const lowerMsg = message.toLowerCase();
+  return CRISIS_KEYWORDS.some(word => lowerMsg.includes(word));
+}
+
+// Utility: Send crisis alert email using EmailJS
+export async function sendCrisisAlertEmail(message) {
+  // EmailJS config from environment variables
+  const serviceID = service_2hpa9tm;
+  const templateID = template_l3th94u;
+  const userID = pVrXtovBIsN48pLI5;
+  // Get name and class from localStorage
+  const studentName = localStorage.getItem('quizName') || '';
+  const studentClass = localStorage.getItem('quizClass') || '';
+  // Find which keywords were triggered
+  const lowerMsg = message.toLowerCase();
+  const triggeredKeywords = CRISIS_KEYWORDS.filter(word => lowerMsg.includes(word)).join(', ');
+  const templateParams = {
+    to_email: CRISIS_ALERT_EMAIL,
+    user_message: message,
+    student_name: studentName,
+    student_class: studentClass,
+    triggered_keywords: triggeredKeywords,
+  };
+  try {
+    // Dynamically import emailjs to avoid loading if not needed
+    const emailjs = await import('emailjs-com');
+    await emailjs.send(serviceID, templateID, templateParams, userID);
+    return true;
+  } catch (err) {
+    console.error('Failed to send crisis alert email:', err);
+    return false;
+  }
+}
+
+// Default crisis response message
+export const CRISIS_RESPONSE_MESSAGE =
+  'It sounds like you might be going through something very serious. I strongly recommend you speak to your school counsellor or a trusted adult. Issues like this require professional and personal help, and you are not alone.';
+
+// Main function: checks for crisis, sends email, and returns appropriate response
+export async function sendMessageWithCrisisDetection(message, isInitial = false) {
+  if (containsCrisisKeyword(message)) {
+    await sendCrisisAlertEmail(message);
+    return CRISIS_RESPONSE_MESSAGE;
+  }
+  // Fallback to normal AI response
+  return sendMessage(message, isInitial);
+}

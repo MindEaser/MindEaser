@@ -27,21 +27,40 @@ const questions = [
   "Do you feel safe and secure in your current environment?"
 ];
 
+const classOptions = [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G',
+  'A(SCI)', 'B(SCI)', 'A(com)', 'B(com)'
+];
+
 const Quiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(-1); // -1 means name/class step
   const [answers, setAnswers] = useState({});
+  const [name, setName] = useState(localStorage.getItem('quizName') || '');
+  const [studentClass, setStudentClass] = useState(localStorage.getItem('quizClass') || '');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const handleStart = () => {
+    if (!name.trim() || !studentClass) {
+      setError('Please enter your name and select your class.');
+      return;
+    }
+    setError('');
+    localStorage.setItem('quizName', name.trim());
+    localStorage.setItem('quizClass', studentClass);
+    setCurrentQuestion(0);
+  };
 
   const handleAnswer = (value) => {
     const newAnswers = { ...answers, [currentQuestion]: value };
     setAnswers(newAnswers);
-    
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // Save answers and timestamp to localStorage
+      // Save answers, name, and class to localStorage
       localStorage.setItem('quizAnswers', JSON.stringify(newAnswers));
       localStorage.setItem('quizTimestamp', Date.now().toString());
+      // Name and class already saved
       navigate('/therapist');
     }
   };
@@ -49,6 +68,8 @@ const Quiz = () => {
   const handleBack = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
+    } else if (currentQuestion === 0) {
+      setCurrentQuestion(-1);
     }
   };
 
@@ -62,30 +83,59 @@ const Quiz = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <Progress current={currentQuestion + 1} total={questions.length} />
-      
+      <Progress current={currentQuestion + 2} total={questions.length + 1} />
       <div className="w-full max-w-2xl bg-white/90 rounded-2xl p-8 shadow-xl mt-8">
-        <h2 className="text-2xl font-semibold mb-6">
-          {questions[currentQuestion]}
-        </h2>
-        
-        <div className="space-y-4">
-          {options.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => handleAnswer(option.value)}
-              className="w-full p-4 text-left rounded-xl bg-white hover:bg-primary-green/20 
-                       transition-colors border-2 border-primary-green/30"
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-        
-        {currentQuestion > 0 && (
-          <Button onClick={handleBack} className="mt-6">
-            Back
-          </Button>
+        {currentQuestion === -1 ? (
+          <>
+            <h2 className="text-2xl font-semibold mb-6">Enter your details</h2>
+            <div className="mb-4">
+              <label className="block mb-2 font-medium">Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                className="w-full p-3 rounded-xl border-2 border-primary-green/30 focus:outline-none focus:border-primary-green"
+                placeholder="Enter your name"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 font-medium">Class</label>
+              <select
+                value={studentClass}
+                onChange={e => setStudentClass(e.target.value)}
+                className="w-full p-3 rounded-xl border-2 border-primary-green/30 focus:outline-none focus:border-primary-green"
+              >
+                <option value="">Select your class</option>
+                {classOptions.map(opt => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
+            {error && <div className="text-red-600 mb-4">{error}</div>}
+            <Button onClick={handleStart} className="mt-2">Start Quiz</Button>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl font-semibold mb-6">
+              {questions[currentQuestion]}
+            </h2>
+            <div className="space-y-4">
+              {options.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => handleAnswer(option.value)}
+                  className="w-full p-4 text-left rounded-xl bg-white hover:bg-primary-green/20 transition-colors border-2 border-primary-green/30"
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            {currentQuestion > 0 && (
+              <Button onClick={handleBack} className="mt-6">
+                Back
+              </Button>
+            )}
+          </>
         )}
       </div>
     </div>
