@@ -59,6 +59,8 @@ export const CRISIS_KEYWORDS = [
   'unsafe',
   'danger',
   'crisis',
+  'jump off',
 ];
 
 export const CRISIS_ALERT_EMAIL = 'manit2010kshettry@gmail.com'; // TODO: Replace with real email
+

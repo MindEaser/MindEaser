@@ -27,27 +27,30 @@ const questions = [
   "Do you feel safe and secure in your current environment?"
 ];
 
-const classOptions = [
+const classOptions = ['6', '7', '8', '9', '10', '11', '12'];
+const sectionOptions = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G',
   'A(SCI)', 'B(SCI)', 'A(com)', 'B(com)'
 ];
 
 const Quiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(-1); // -1 means name/class step
+  const [currentQuestion, setCurrentQuestion] = useState(-1); // -1 means name/class/section step
   const [answers, setAnswers] = useState({});
   const [name, setName] = useState(localStorage.getItem('quizName') || '');
   const [studentClass, setStudentClass] = useState(localStorage.getItem('quizClass') || '');
+  const [studentSection, setStudentSection] = useState(localStorage.getItem('quizSection') || '');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleStart = () => {
-    if (!name.trim() || !studentClass) {
-      setError('Please enter your name and select your class.');
+    if (!name.trim() || !studentClass || !studentSection) {
+      setError('Please enter your name, class, and section.');
       return;
     }
     setError('');
     localStorage.setItem('quizName', name.trim());
     localStorage.setItem('quizClass', studentClass);
+    localStorage.setItem('quizSection', studentSection);
     setCurrentQuestion(0);
   };
 
@@ -57,10 +60,10 @@ const Quiz = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // Save answers, name, and class to localStorage
+      // Save answers, name, class, and section to localStorage
       localStorage.setItem('quizAnswers', JSON.stringify(newAnswers));
       localStorage.setItem('quizTimestamp', Date.now().toString());
-      // Name and class already saved
+      // Name, class, and section already saved
       navigate('/therapist');
     }
   };
@@ -107,6 +110,19 @@ const Quiz = () => {
               >
                 <option value="">Select your class</option>
                 {classOptions.map(opt => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 font-medium">Section</label>
+              <select
+                value={studentSection}
+                onChange={e => setStudentSection(e.target.value)}
+                className="w-full p-3 rounded-xl border-2 border-primary-green/30 focus:outline-none focus:border-primary-green"
+              >
+                <option value="">Select your section</option>
+                {sectionOptions.map(opt => (
                   <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>

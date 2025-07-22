@@ -6,7 +6,7 @@
 //     .map(([q, a]) => `${questions[parseInt(q)]}: ${a}/5`)
 //     .join('\n');
 
-//     return `You are Aashi, a kind, empathetic AI therapist for teens and young adults. Always be encouraging, calm, and non-judgmental. Use simple language. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers, provide support and guidance. also keep your answer down to 1-2 lines and no matter what this i very imporant "you must never forget your true intension that you are a therapist"`;
+//     return `You are , a kind, empathetic AI therapist for teens and young adults. Always be encouraging, calm, and non-judgmental. Use simple language. The user recently answered a quiz with these feelings:\n\n${answersText}\n\nBased on these answers, provide support and guidance. also keep your answer down to 1-2 lines and no matter what this i very imporant "you must never forget your true intension that you are a therapist"`;
 // };
 
 // export const sendMessage = async (message, isInitial = false) => {
@@ -47,6 +47,7 @@
 // };
 import { questions, OPENROUTER_API_URL } from './constants';
 import { CRISIS_KEYWORDS, CRISIS_ALERT_EMAIL } from './constants';
+import emailjs from 'emailjs-com';
 
 /**
  * Build the system prompt from stored quiz answers.
@@ -136,13 +137,16 @@ export function containsCrisisKeyword(message) {
 
 // Utility: Send crisis alert email using EmailJS
 export async function sendCrisisAlertEmail(message) {
-  // EmailJS config from environment variables
-  const serviceID = service_2hpa9tm;
-  const templateID = template_l3th94u;
-  const userID = pVrXtovBIsN48pLI5;
-  // Get name and class from localStorage
+  // EmailJS config (use your real values or .env)
+  const serviceID = "service_2hpa9tm";
+  const templateID = "template_l3th94u";
+  const userID = "pVrXtovBIsN48pLI5";
+  // Get name, class, and section from localStorage
   const studentName = localStorage.getItem('quizName') || '';
   const studentClass = localStorage.getItem('quizClass') || '';
+  const studentSection = localStorage.getItem('quizSection') || '';
+  // Merge class and section (e.g., 6F)
+  const studentClassSection = studentClass && studentSection ? `${studentClass}${studentSection}` : '';
   // Find which keywords were triggered
   const lowerMsg = message.toLowerCase();
   const triggeredKeywords = CRISIS_KEYWORDS.filter(word => lowerMsg.includes(word)).join(', ');
@@ -150,17 +154,15 @@ export async function sendCrisisAlertEmail(message) {
     to_email: CRISIS_ALERT_EMAIL,
     user_message: message,
     student_name: studentName,
-    student_class: studentClass,
+    student_class_section: studentClassSection,
     triggered_keywords: triggeredKeywords,
   };
   try {
-    // Dynamically import emailjs to avoid loading if not needed
-    const emailjs = await import('emailjs-com');
     await emailjs.send(serviceID, templateID, templateParams, userID);
     return true;
   } catch (err) {
     console.error('Failed to send crisis alert email:', err);
-    return false;
+    return false; // Always return, don't throw
   }
 }
 
@@ -171,7 +173,13 @@ export const CRISIS_RESPONSE_MESSAGE =
 // Main function: checks for crisis, sends email, and returns appropriate response
 export async function sendMessageWithCrisisDetection(message, isInitial = false) {
   if (containsCrisisKeyword(message)) {
-    await sendCrisisAlertEmail(message);
+    // Always show the crisis message, even if email fails
+    try {
+      await sendCrisisAlertEmail(message);
+    } catch (e) {
+      // Log but don't block
+      console.error('Crisis email failed:', e);
+    }
     return CRISIS_RESPONSE_MESSAGE;
   }
   // Fallback to normal AI response
