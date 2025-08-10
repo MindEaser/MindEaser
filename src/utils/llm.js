@@ -20,7 +20,7 @@
 //         'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
 //       },
 //       body: JSON.stringify({
-//         model: 'meta-llama/llama-3.3-70b-instruct:free',
+//         model: 'meta-llama/openai/gpt-oss-20b:free',
 //         messages: [
 //           {
 //             role: 'system',
